@@ -1,0 +1,4 @@
+        Date        , GPU Core Clock [MHz] , GPU Memory Clock [MHz] , GPU Temperature [°C] , GPU Power [W] , GPU Load [%] , Memory Usage [MB] ,
+2017-06-17 15:37:57 ,              300.0   ,                933.3   ,               50.0   ,         0.0   ,          0   ,             213   ,
+2017-06-17 15:37:58 ,              300.0   ,                933.3   ,               51.0   ,         0.0   ,          1   ,             213   ,
+2017-06-17 15:37:59 ,              300.0   ,                933.3   ,               50.0   ,         0.0   ,          2   ,             213   ,
