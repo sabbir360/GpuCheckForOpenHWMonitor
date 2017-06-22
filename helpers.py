@@ -143,7 +143,7 @@ def kill_process(process_name):
 
 
 def tempereture_base_scale():
-    wl("\n\n-------------A NEW PROCESS-------------------- \n" + ETHMINER_BAT + "\n")
+    wl("-------------A NEW PROCESS-------------------- \n" + ETHMINER_BAT + "\n")
 
     try:
         resp = get(API_URL)
