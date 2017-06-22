@@ -22,11 +22,11 @@ API_URL = "http://192.168.2.115:8085/data.json"
 GPU_Z = "GPU-Z.exe"
 MINE_TOOL = "ethminer.exe"
 GPUZ_LOG = "C:\\Users\\User\\\Downloads\\GPU-Z Sensor Log.txt"
-ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\etherminer.org.bat"
-# ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\dwarfpool.com.bat"
+# ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\etherminer.org.bat"
+ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\dwarfpool.com.bat"
 LOG_PATH = "D:\\gpucheck\\log\\" + str(datetime.now().strftime('%Y-%m-%d')) + "-miner_script.txt"
 CLOCK_BREACH_VALUE = 1200
-TEMP_BREACH_LIMIT = 60
+TEMP_BREACH_LIMIT = 46
 API_URL = "http://localhost:8085/data.json"
 OP_MONITOR = "OpenHardwareMonitor.exe"
 
@@ -34,7 +34,7 @@ OP_MONITOR = "OpenHardwareMonitor.exe"
 def wl(txt):
     print(txt)
     with open(LOG_PATH, "a+") as myfile:
-        myfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + ": " + txt + "\n \t \t \t" + ETHMINER_BAT + "\n")
+        myfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + ": " + txt + "\n")
 
 
 def start_gpu_z():
@@ -143,7 +143,7 @@ def kill_process(process_name):
 
 
 def tempereture_base_scale():
-    wl("\r\r-------------A NEW PROCESS--------------------")
+    wl("\n\n-------------A NEW PROCESS-------------------- \n" + ETHMINER_BAT + "\n")
 
     try:
         resp = get(API_URL)
