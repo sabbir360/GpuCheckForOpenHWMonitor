@@ -23,6 +23,7 @@ GPU_Z = "GPU-Z.exe"
 MINE_TOOL = "ethminer.exe"
 GPUZ_LOG = "C:\\Users\\User\\\Downloads\\GPU-Z Sensor Log.txt"
 ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\etherminer.org.bat"
+# ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\dwarfpool.com.bat"
 LOG_PATH = "D:\\gpucheck\\log\\" + str(datetime.now().strftime('%Y-%m-%d')) + "-miner_script.txt"
 CLOCK_BREACH_VALUE = 1200
 TEMP_BREACH_LIMIT = 60
@@ -33,7 +34,7 @@ OP_MONITOR = "OpenHardwareMonitor.exe"
 def wl(txt):
     print(txt)
     with open(LOG_PATH, "a+") as myfile:
-        myfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + ": " + txt + "\n")
+        myfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + ": " + txt + "\n \t \t \t" + ETHMINER_BAT + "\n")
 
 
 def start_gpu_z():
