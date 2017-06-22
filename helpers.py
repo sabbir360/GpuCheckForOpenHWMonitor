@@ -5,7 +5,6 @@ import time
 from requests import get
 from re import findall
 
-"""
 # Test env
 GPU_Z = "GPU-Z.exe"
 MINE_TOOL = "ethminer.exe"
@@ -15,20 +14,21 @@ GPUZ_LOG = "C:\\Users\Sabbir\\Documents\\CodeZone\\PythonLab\\RnD\\gpuzfileparse
 ETHMINER_BAT = "C:\\Users\Sabbir\\Documents\\CodeZone\\PythonLab\\RnD\\gpuzfileparser\\test.bat"
 LOG_PATH = "C:\\Users\Sabbir\\Documents\\CodeZone\\PythonLab\\RnD\\gpuzfileparser\\log\\" + str(datetime.now().strftime('%Y-%m-%d')) + "-miner_script.txt"
 CLOCK_BREACH_VALUE = 200
-TEMP_BREACH_LIMIT = 60
-API_URL = "http://192.168.2.115:8085/data.json"
+LOAD_BREACH_LIMIT = 60
+API_URL = "http://202.5.50.125:8085/data.json"
 """
 # Prod env
 GPU_Z = "GPU-Z.exe"
 MINE_TOOL = "ethminer.exe"
 GPUZ_LOG = "C:\\Users\\User\\\Downloads\\GPU-Z Sensor Log.txt"
-# ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\etherminer.org.bat"
-ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\dwarfpool.com.bat"
+ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\etherminer.org.bat"
+# ETHMINER_BAT = "D:\\Ethereum\\ethminer-0.9.41-genoil-1.1.7\\dwarfpool.com.bat"
 LOG_PATH = "D:\\gpucheck\\log\\" + str(datetime.now().strftime('%Y-%m-%d')) + "-miner_script.txt"
 CLOCK_BREACH_VALUE = 1200
-TEMP_BREACH_LIMIT = 46
+LOAD_BREACH_LIMIT = 80
 API_URL = "http://localhost:8085/data.json"
 OP_MONITOR = "OpenHardwareMonitor.exe"
+"""
 
 
 def wl(txt):
@@ -154,20 +154,20 @@ def tempereture_base_scale():
                 for gpu_item in gpu_json:
                     if 'Radeon RX 580 Series' in gpu_item['Text']:
                         for item in gpu_item['Children']:
-                            if 'Temperatures' in item['Text']:
+                            if 'Load' in item['Text']:
                                 temp_item = item['Children']
-                                tempereture = temp_item[0]['Value']
+                                load_val = temp_item[0]['Value']
                                 try:
-                                    int_temp_list = findall(r'\d+', tempereture)
+                                    int_temp_list = findall(r'\d+', load_val)
                                     # print(int_temp)
-                                    real_temp = int_temp_list[0]
-                                    if(int(real_temp) < TEMP_BREACH_LIMIT):
-                                        wl(str(real_temp) + ": Which is lower than expected.")
+                                    real_load = int_temp_list[0]
+                                    if(int(real_load) < LOAD_BREACH_LIMIT):
+                                        wl(str(real_load) + ": Which is lower than expected.")
                                         kill_process(MINE_TOOL)
                                         mining_start()
                                         exit()
                                     else:
-                                        wl("Check passed with tempereture " + str(real_temp))
+                                        wl("Check passed with load " + str(real_load))
                                 except Exception as ex:
                                     wl("Number extract error, " + str(ex))
                                     kill_and_open_hw_mon()
