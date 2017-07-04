@@ -5,10 +5,12 @@ import time
 from requests import get
 from re import findall
 
+"""
 # Test env
 GPU_Z = "GPU-Z.exe"
 MINE_TOOL = "ethminer.exe"
 OP_MONITOR = "OpenHardwareMonitor.exe"
+OP_PATH = "C:\\Program Files\\OpenHardwareMonitor\\"
 # GPUZ_LOG = "C:\\Users\\User\\\Downloads\\GPU-Z Sensor Log.txt"
 GPUZ_LOG = "C:\\Users\Sabbir\\Documents\\CodeZone\\PythonLab\\RnD\\gpuzfileparser\\GPU-Z Sensor Log.txt"
 ETHMINER_BAT = "C:\\Users\Sabbir\\Documents\\CodeZone\\PythonLab\\RnD\\gpuzfileparser\\test.bat"
@@ -28,7 +30,7 @@ CLOCK_BREACH_VALUE = 1200
 LOAD_BREACH_LIMIT = 80
 API_URL = "http://localhost:8085/data.json"
 OP_MONITOR = "OpenHardwareMonitor.exe"
-"""
+OP_PATH = "D:\\OpenHardwareMonitor\\"
 
 
 def wl(txt):
@@ -180,6 +182,7 @@ def tempereture_base_scale():
             wl("API Call error for " + API_URL)
     except Exception as ex:
         wl(str(ex))
+        kill_and_open_hw_mon()
         # kill_and_open_hw_mon()
 
 
@@ -188,7 +191,7 @@ def kill_and_open_hw_mon():
 
     try:
         # p = subprocess.Popen('start "" "C:\Program Files (x86)\GPU-Z\' + GPU_Z + '"', shell=True)
-        p = subprocess.Popen("start \"\" \"C:\\Program Files\\OpenHardwareMonitor\\" + OP_MONITOR + "\"", shell=True)
+        p = subprocess.Popen("start \"\" " + OP_PATH + OP_MONITOR + "\"", shell=True)
         stdout_data, stderr_data = p.communicate()
         if p.returncode != 0:
             wl("Something went wrong for OP HW Montinor>>" + stderr_data)
