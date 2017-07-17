@@ -5,6 +5,7 @@ import time
 from requests import get
 from re import findall
 
+
 """
 # Test env
 GPU_Z = "GPU-Z.exe"
@@ -47,7 +48,7 @@ def start_gpu_z():
         p = subprocess.Popen("start \"\" \"C:\\Program Files (x86)\\GPU-Z\\" + GPU_Z + "\"", shell=True)
         stdout_data, stderr_data = p.communicate()
         if p.returncode != 0:
-            wl("SOmething went wrong>>" + stderr_data)
+            wl("SOmeThinG went wrong>>" + stderr_data)
         p.wait()
         wl(GPU_Z + " started again")
         return True
@@ -138,23 +139,25 @@ def kill_process(process_name):
         p = subprocess.Popen('taskkill /f /IM ' + process_name, shell=True)
         stdout_data, stderr_data = p.communicate()
         if p.returncode == 0:
-            wl("Kill Sucess")
+            wl("Kill Success")
         else:
             wl("Something went wrong for kill >>" + process_name + ": " + str(stderr_data))
     wl("I passed kill process.")
 
 
-def tempereture_base_scale():
+def temperatures_base_scale():
     wl("-------------A NEW PROCESS-------------------- \n" + ETHMINER_BAT + "\n")
 
     try:
         resp = get(API_URL)
         if resp.status_code == 200:
             json_data = resp.json()
+            # import pdb; pdb.set_trace()
             try:
                 gpu_json = json_data['Children'][0]['Children']
                 for gpu_item in gpu_json:
                     if 'Radeon RX 580 Series' in gpu_item['Text']:
+                        # print(gpu_item['Text'])
                         for item in gpu_item['Children']:
                             if 'Load' in item['Text']:
                                 temp_item = item['Children']
@@ -163,7 +166,7 @@ def tempereture_base_scale():
                                     int_temp_list = findall(r'\d+', load_val)
                                     # print(int_temp)
                                     real_load = int_temp_list[0]
-                                    if(int(real_load) < LOAD_BREACH_LIMIT):
+                                    if int(real_load) < LOAD_BREACH_LIMIT:
                                         wl(str(real_load) + ": Which is lower than expected.")
                                         kill_process(MINE_TOOL)
                                         mining_start()
@@ -174,6 +177,8 @@ def tempereture_base_scale():
                                     wl("Number extract error, " + str(ex))
                                     kill_and_open_hw_mon()
                                     exit()
+                    else:
+                        print(gpu_item['Text'])
             except Exception as ex:
                 wl(str(ex))
                 kill_and_open_hw_mon()
@@ -184,6 +189,8 @@ def tempereture_base_scale():
         wl(str(ex))
         kill_and_open_hw_mon()
         # kill_and_open_hw_mon()
+        time.sleep(13)
+        temperatures_base_scale()
 
 
 def kill_and_open_hw_mon():

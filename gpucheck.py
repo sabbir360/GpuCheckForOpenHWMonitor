@@ -1,5 +1,6 @@
-import os
-from helpers import start_gpu_z, LOG_PATH, mining_check, tempereture_base_scale
+# import os
+# from helpers import start_gpu_z, LOG_PATH, mining_check, tempereture_base_scale
+from helpers import temperatures_base_scale
 
 
 """
@@ -11,4 +12,4 @@ except Exception as ex:
 mining_check()
 """
 
-tempereture_base_scale()
+temperatures_base_scale()
